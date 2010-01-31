@@ -16,12 +16,12 @@ else header("Content-Type: text/html; charset=ISO-8859-1");
 $css='';
 foreach ($this->pagina->getCSS() as $value)
 	$css .= '
-		<link rel="StyleSheet" type="text/css" media="'.$value[1].'" href="'.$value[0].'"/>';
+		<link rel="StyleSheet" type="text/css" media="'.$value[1].'" href="'.$this->base_url().$value[0].'"/>';
 		
 $script='';
 foreach ($this->pagina->getScripts() as $value)
 	$script .= '
-		<script type="text/javascript" src="'.$value.'"></script>';
+		<script type="text/javascript" src="'.$this->base_url().$value.'"></script>';
 		
 	return '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml11.dtd">
@@ -41,6 +41,10 @@ foreach ($this->pagina->getScripts() as $value)
 </html>';
 }
 
+function base_url(){
+	return '';
+}
+
 function makeContent($container){
 	$text = '';
 	foreach ($container->getComponents() as $value)
@@ -50,12 +54,16 @@ function makeContent($container){
 
 function makeObject($element){
 	$result = '';
-	if(!$element instanceof vStyleElement) return str_replace('&','&amp;',$element);
+	if(!$element instanceof vStyleElement) return htmlspecialchars($element);
 	else if($element instanceof vComponent) return $this->makeObject($element->getComponent());
 	else{
 		$func='make_'.get_class($element);
 		return $this->$func($element);
 	}
+}
+
+function make_vPreformatedText($text){
+	return $text->text;
 }
 
 function make_vInputCheckBox($input){
@@ -193,6 +201,10 @@ function make_vHeader($component){
 
 function make_vDiv($component){
 	return $this->makeElement('div',$component);
+}
+
+function make_vSpan($component){
+	return $this->makeElement('span',$component);
 }
 
 function make_vParagraph($component){

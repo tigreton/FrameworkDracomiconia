@@ -1,0 +1,14 @@
+RewriteEngine on
+
+
+RewriteRule ^index.php$ index.php [L]
+RewriteRule ^css/(.*)$ - [L]
+RewriteRule ^js/(.*)$ - [L]
+RewriteRule ^img/(.*)$ - [L]
+
+RewriteRule ^(.+)$ index.php
+
+
+php_value upload_max_filesize 10M
+php_value post_max_size 10M
+php_value max_execution_time 20
