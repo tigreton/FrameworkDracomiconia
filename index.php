@@ -4,11 +4,13 @@ require_once ('model.php');
 
 session_start();
 
+// Si no recibimos ninguna direcciín, mostramos el index
 if(!isset($_SERVER['REDIRECT_URL'])){
 	$path = 'index.php';
 	$class='Index';
 }
 else{
+	// En caso contrario dividimos la dirección por las barras (/) para obtener los segmentos de la url
 	$url = explode ('/',$_SERVER['REDIRECT_URL']);
 	
 	if( $_SERVER['SERVER_NAME']=='127.0.0.1') $pos=2;
