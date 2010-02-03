@@ -40,6 +40,9 @@ class Pagina extends Proceso{
 			)):new vContainer(array(
 				// Mostramos su nombre
 				'Usuario: '.$this->usuario->nombre.' ',
+
+new vLink($this->getRelativeDir('usuario/mensajes'),'Mensajes'),
+
 				new vLink($this->getRelativeDir('usuario/cerrar_sesion_process'),'Cerrar sesión')
 			)))
 		),'cabecera');
